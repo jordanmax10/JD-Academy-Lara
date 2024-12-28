@@ -24,12 +24,13 @@
             @endif
         </h1>
     @endif
+
+    @include('_includes.admin.alerts')
 @stop
 
 {{-- Rename section content to content_body --}}
 
 @section('content')
-    @include('_includes.admin.alerts')
 
     @yield('content')
 @stop
@@ -43,7 +44,7 @@
 
     <strong>
         <a href="{{ config('app.company_url', '#') }}">
-            {{ config('app.company_name', 'My company') }}
+            {{ config('app.company_name', 'JD-Academy | Jordan Dev') }}
         </a>
     </strong>
 @stop
@@ -53,23 +54,14 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            // Add your common script logic here...
         });
     </script>
 @endpush
 
-{{-- Add common CSS customizations --}}
+
 
 @push('css')
     <style type="text/css">
-        /* {{-- You can add AdminLTE customizations here --}} */
-        /*
-        .card-header {
-            border-bottom: none;
-        }
-        .card-title {
-            font-weight: 600;
-        }
-        */
+
     </style>
 @endpush

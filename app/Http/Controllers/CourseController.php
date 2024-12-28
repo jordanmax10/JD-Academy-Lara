@@ -25,19 +25,29 @@ class CourseController extends Controller
         return view('index', ['courses' => $courses]);
     }
 
-        /**
+    /**
      * Display the specified resource.
      */
     public function show(Course $course)
     {
         $user = Auth::user(); // Obtener el usuario autenticado
 
-        // Verificar si el usuario está inscrito en el curso
+        // Verificar si el usuario está inscrito en el curso utilizando enrolledCourses
         $isEnrolled = $user->enrolledCourses->contains($course);
 
-        // Pasamos la información del curso y el estado de inscripción a la vista
-        return view('user.show', ['course' => $course, 'isEnrolled' => $isEnrolled]);
-    }
+        // Si está inscrito, obtenemos el estado de la inscripción usando la relación students()
+        $enrollmentStatus = null;
+        if ($isEnrolled) {
+            // Obtener la inscripción en la tabla pivot para el usuario y el curso
+            $enrollment = $course->students()->where('user_id', $user->id)->first();
+            $enrollmentStatus = $enrollment ? $enrollment->pivot->status : null;
+        }
 
-    
+        // Pasamos la información del curso, el estado de inscripción y si está inscrito a la vista
+        return view('user.show', [
+            'course' => $course,
+            'isEnrolled' => $isEnrolled,
+            'enrollmentStatus' => $enrollmentStatus,
+        ]);
+    }
 }

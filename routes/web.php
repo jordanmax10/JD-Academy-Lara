@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CourseController as AdminCourseController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CourseController;
@@ -32,14 +33,14 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-
 // Rutas protegidas por autenticación PROFE
 Route::middleware('auth')->group(function () {
     // Rutas de recursos para el controlador de Cursos
     Route::resource('courses', CourseController::class)->only(['index','show'])->names('courses');
 
     Route::resource('profile', ProfileController::class)->names('admin-profile');
-
+    
+    
 });
 
 // Rutas protegidas por autenticación ADMIN
@@ -47,6 +48,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('admin',AdminController::class)->names('admin');
     Route::resource('users',AdminUserController::class)->only(['index','edit','update'])->names('admin-user');
     Route::resource('courses', AdminCourseController::class)->names('admin-course');
+    Route::resource('roles', RoleController::class)->names('admin-role');
+    Route::get('/courses/{courseId}/students', [AdminCourseController::class, 'getStudents']);
+    
 });
 
 
@@ -62,4 +66,6 @@ Route::middleware('auth')->group(function () {
     Route::post('user/{course}/enroll', [UserController::class, 'enroll'])->name('user.enroll');
     // Ruta para desinscribirse de un curso (DELETE)
     Route::delete('user/{course}/unenroll', [UserController::class, 'cancelEnrollment'])->name('user.unenroll');
+    Route::patch('user/courses/{course}/complete', [UserController::class, 'completeCourse'])->name('user.completeCourse');
+
 });

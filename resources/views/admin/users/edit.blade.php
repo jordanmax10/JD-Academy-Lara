@@ -7,7 +7,16 @@
 @stop
 
 @section('content')
-
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin-user.index') }}">Inicio</a></li>
+                <li class="breadcrumb-item active">Usuarios</li>
+            </ol>
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
     <div class="container">
         <div class="card">
             <div class="card-body">

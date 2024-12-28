@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -336,26 +336,17 @@ return [
             'route' => 'admin-user.index',
         ],
         [
-            'text' => 'Seguridad',
-            'icon' => 'fas fa-fw fa-lock',
-            'submenu' => [
-                [
-                    'text' => 'Roles',
-                    'icon_color' => 'red',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'Permisos',
-                    'icon_color' => 'yellow',
-                    'url' => '#',
-                ],
-            ],
+            'text' => 'Roles',
+            'icon' => 'fas fa-users-cog fa-fw',
+            'route' => 'admin-role.index',
+            'can' => 'admin-role.index',
         ],
+        
         ['header' => 'OPCIONES DE PROFESOR'],
         [
             'text' => 'Cursos',
             'icon' => 'fas fa-fw fa-book',
-            'can'  => '',
+            'can'  => 'admin-courses.index',
             'route' => 'admin-course.index',
         ],
     ],

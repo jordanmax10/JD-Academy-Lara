@@ -12,8 +12,7 @@
                 <!-- Información del curso -->
                 <div class="md:w-2/3 p-6">
                     <h2 class="text-2xl font-bold text-gray-800">{{ $course->title }}</h2>
-                    <p class="mt-2 text-lg text-gray-600"><strong>Categoría:</strong> {{ $course->description }}</p>
-                    {{-- <p class="mt-2 text-lg text-gray-600"><strong>Estado:</strong> {{ $course->students->status }}</p> --}}
+                    <p class="mt-2 text-lg text-gray-600"><strong>Descripción:</strong> {{ $course->description }}</p>
                     <p class="mt-2 text-lg text-gray-600"><strong>Profesor:</strong>
                         @if ($course->instructor)
                             {{ $course->instructor->name }}
@@ -22,11 +21,20 @@
                         @endif
                     </p>
 
+                    <!-- Estado de inscripción -->
+                    <p class="mt-2 text-lg text-gray-600"><strong>Estado de inscripción:</strong>
+                        @if ($isEnrolled) <!-- Si el usuario está inscrito -->
+                            {{ $enrollmentStatus }} <!-- Mostrar el estado desde la tabla pivot -->
+                        @else
+                            No inscrito <!-- Si no está inscrito -->
+                        @endif
+                    </p>
+
                     <!-- Acción de inscripción -->
                     <div class="mt-6 flex justify-between gap-5">
                         @if (Auth::check())
                             @if (Auth::user()->hasRole('User'))
-                                @if (!$isEnrolled)
+                                @if (!$isEnrolled) <!-- Si no está inscrito -->
                                     <form action="{{ route('user.enroll', $course) }}" method="POST">
                                         @csrf
                                         <button type="submit"
@@ -34,7 +42,7 @@
                                             Inscribirse
                                         </button>
                                     </form>
-                                @else
+                                @else <!-- Si está inscrito -->
                                     <button class="w-full bg-green-500 text-white py-3 px-6 rounded-lg cursor-not-allowed"
                                         disabled>
                                         Ya estás inscrito
@@ -51,7 +59,6 @@
                                 Inicia sesión para inscribirte
                             </a>
                         @endif
-
                     </div>
 
                 </div>

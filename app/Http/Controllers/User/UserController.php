@@ -70,13 +70,13 @@ class UserController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        $user = User::find(Auth::id()); 
+        $user = User::find(Auth::id());
 
         // Validar los datos de entrada
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:6|confirmed', 
+            'password' => 'nullable|string|min:6|confirmed',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,avif|max:2048',
         ]);
 
@@ -101,7 +101,7 @@ class UserController extends Controller
             $user->url_img = $imagePath; // Actualizar la URL de la imagen en la base de datos
         }
 
-        $user->save(); 
+        $user->save();
 
         return redirect()->route('user.profile')->with('success', 'Perfil Actualizado Correctamente');
     }
@@ -147,5 +147,33 @@ class UserController extends Controller
         }
 
         return back()->withErrors('error', 'No estás inscrito en este curso.');
+    }
+
+    /**
+     * Marcar el curso como terminado.
+     */
+    public function completeCourse(Course $course)
+    {
+        $user = Auth::user(); // Obtener el usuario autenticado
+
+        // Verificar si el usuario está inscrito en el curso
+        $enrollment = Course_Enrollment::where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->first();
+
+        if ($enrollment) {
+            // Verificar si el estado ya es "terminado"
+            if ($enrollment->status == 'terminado') {
+                return back()->with('error', 'El curso ya está marcado como terminado.');
+            }
+
+            // Cambiar el estado a "terminado"
+            $enrollment->status = 'terminado';
+            $enrollment->save();
+
+            return back()->with('success', 'Has marcado el curso como terminado.');
+        }
+
+        return back()->with('error', 'No estás inscrito en este curso.');
     }
 }

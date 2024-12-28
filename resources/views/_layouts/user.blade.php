@@ -81,10 +81,7 @@
                                 class="font-extrabold block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Mis
                                 Cursos</a>
                         </li>
-                        <li>
-                            <a href="#"
-                                class="font-extrabold block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -92,9 +89,8 @@
     </header>
 
     <div class="">
-    <!-- Mostrar mensaje de éxito o error usando el componente -->
-    <x-alert-message type="success" message="{{ session('success') }}" />
-    <x-alert-message type="error" message="{{ $errors->first() }}" />
+        <x-alert-message type="success" message="{{ session('success') }}" />
+        <x-alert-message type="error" message="{{ $errors->first() }}" />
     </div>
     @yield('content')
 </body>

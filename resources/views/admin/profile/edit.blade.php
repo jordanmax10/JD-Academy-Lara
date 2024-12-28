@@ -14,15 +14,11 @@
 <div class="container">
     <div class="card text-center">
         <div class="card-header text-center">
-        <h2 style="font-size: 2.25rem;line-height: 2.5rem;font-weight: 800;">
-            Actualizar el Perfil
-            <span style="color: #ff5a1f;"> del Usuario</span>
-        </h2>
+            <h2 style="font-size: 2.25rem;line-height: 2.5rem;font-weight: 800;">
+                Actualizar el Perfil
+                <span style="color: #ff5a1f;"> del Usuario</span>
+            </h2>
         </div>
-        <!-- Mostrar mensaje de éxito o error usando el componente -->
-        <x-alert-message type="success" message="{{ session('success') }}" />
-        <x-alert-message type="error" message="{{ $errors->first() }}" />
-
         <form method="POST" action="{{ route('admin-profile.update', Auth::user()) }}" enctype="multipart/form-data"
             class="space-y-6">
             @csrf
@@ -35,7 +31,8 @@
                 <div class="flex justify-center items-center">
                     <div style="overflow:hidden">
                         <img id="image-preview" src="{{ asset('storage/' . Auth::user()->url_img) }}"
-                            alt="Imagen de Perfil" style="object-fit: cover;width: 250px;height: 250px;border-radius: 9999px;border: 4px solid #0e9f6e;">
+                            alt="Imagen de Perfil"
+                            style="object-fit: cover;width: 250px;height: 250px;border-radius: 9999px;border: 4px solid #0e9f6e;">
                     </div>
                     <div class="mt-4 text-center">
                         <label for="image" class="form-label">Cambiar foto de
@@ -49,13 +46,10 @@
                 <div>
                     <!-- Campo de Nombre -->
                     <div class="form-group">
-                        <label for="name"
-                            class="form-label">Nombre y
+                        <label for="name" class="form-label">Nombre y
                             Apellido</label>
                         <input type="text" id="name" name="name"
-                            value="{{ old('name', Auth::user()->name) }}"
-                            class="form-control"
-                            required autofocus>
+                            value="{{ old('name', Auth::user()->name) }}" class="form-control" required autofocus>
                         @error('name')
                             <div class="invalid-feedback text-red-500 text-xs">{{ $message }}</div>
                         @enderror
@@ -63,13 +57,10 @@
 
                     <!-- Campo de Correo Electrónico -->
                     <div class="form-group">
-                        <label for="email"
-                            class="form-label">Correo
+                        <label for="email" class="form-label">Correo
                             Electrónico</label>
                         <input type="email" id="email" name="email"
-                            value="{{ old('email', Auth::user()->email) }}"
-                            class="form-control"
-                            required autofocus>
+                            value="{{ old('email', Auth::user()->email) }}" class="form-control" required autofocus>
                         @error('email')
                             <div class="invalid-feedback text-red-500 text-xs">{{ $message }}</div>
                         @enderror
@@ -77,11 +68,9 @@
 
                     <!-- Campo de Contraseña (opcional) -->
                     <div class="mb-4">
-                        <label for="password"
-                            class="form-label">Nueva Contraseña
+                        <label for="password" class="form-label">Nueva Contraseña
                             (opcional)</label>
-                        <input type="password" id="password" name="password"
-                            class="form-control">
+                        <input type="password" id="password" name="password" class="form-control">
                         @error('password')
                             <div class="invalid-feedback text-red-500 text-xs">{{ $message }}</div>
                         @enderror
@@ -89,8 +78,7 @@
 
                     <!-- Confirmar Contraseña -->
                     <div class="form-group">
-                        <label for="password_confirmation"
-                            class="form-label">Confirmar Nueva
+                        <label for="password_confirmation" class="form-label">Confirmar Nueva
                             Contraseña</label>
                         <input type="password" id="password_confirmation" name="password_confirmation"
                             class="form-control">
@@ -98,8 +86,7 @@
 
                     <!-- Botón de Guardar Cambios -->
                     <div class="my-4">
-                        <button type="submit"
-                            class="btn btn-success">
+                        <button type="submit" class="btn btn-success">
                             Guardar Cambios
                         </button>
                     </div>
@@ -120,7 +107,7 @@
             reader.readAsDataURL(file);
             reader.onload = function() {
                 preview.src = reader.result;
-                preview.classList.remove('hidden'); 
+                preview.classList.remove('hidden');
             };
         }
     }

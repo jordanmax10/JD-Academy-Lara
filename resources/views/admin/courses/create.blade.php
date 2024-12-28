@@ -23,16 +23,31 @@
         <div class="form-group">
             <label for="title">Título del curso</label>
             <input type="text" name="title" class="form-control" id="title" required>
+            @error('title')
+                <div class="text-red">
+                    {{$message}}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="description">Descripción del curso</label>
             <textarea name="description" class="form-control" id="description" rows="3" required></textarea>
+            @error('description')
+                <div class="text-red">
+                    {{$message}}
+                </div>
+            @enderror
         </div>
         <br>
         <div class="form-group">
             <label for="image">Imagen del curso</label>
-            <input type="file" name="image" class="form-control" id="image" accept="image/*">
+            <input type="file" name="image" class="form-control" id="image" accept="image/*" required>
+            @error('image')
+                <div class="text-red">
+                    {{$message}}
+                </div>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">Crear curso</button>

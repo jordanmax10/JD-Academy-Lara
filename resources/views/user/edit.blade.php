@@ -7,10 +7,6 @@
             <span class="text-orange-500 ml-2"> del Usuario</span>
         </h2>
 
-        <!-- Mostrar mensaje de éxito o error usando el componente -->
-        <x-alert-message type="success" message="{{ session('success') }}" />
-        <x-alert-message type="error" message="{{ $errors->first() }}" />
-
         <form method="POST" action="{{ route('user.profile.update') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')

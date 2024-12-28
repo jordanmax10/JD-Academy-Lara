@@ -35,17 +35,10 @@ class Course extends Model
     public function students()
     {
         return $this->belongsToMany(User::class, 'course__enrollments')
-                    ->withPivot('status', 'enrolled_at') // Incluye datos adicionales en la tabla pivot
-                    ->withTimestamps(); // Para manejar las columnas de tiempo en la tabla pivot
+            ->withPivot('status', 'enrolled_at') // Incluye datos adicionales en la tabla pivot
+            ->withTimestamps(); // Para manejar las columnas de tiempo en la tabla pivot
     }
 
-    /**
-     * Relación: El curso tiene muchos archivos asociados.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function files()
-    {
-        return $this->hasMany(Course_File::class); // El curso puede tener muchos archivos
-    }
+
+    
 }

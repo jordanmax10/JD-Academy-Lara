@@ -33,5 +33,7 @@ class UserSeeder extends Seeder
             'password'=> bcrypt('profe123'),
             'url_img'=>''
         ])->assignRole('Teacher');
+
+        
     }
 }

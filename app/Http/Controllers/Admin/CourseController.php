@@ -19,7 +19,7 @@ class CourseController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:Admin');
+        $this->middleware('role:Admin|Teacher');
     }
 
     /**
@@ -34,8 +34,30 @@ class CourseController extends Controller
                 ->orderBy('id', 'desc')
                 ->paginate(10);
 
+            // Añadir el número de estudiantes inscritos en cada curso
+            foreach ($courses as $course) {
+                $course->student_count = $course->students()->count();
+            }
+
             return view('admin.courses.index', ['courses' => $courses, 'search' => $query]);
         }
+    }
+
+    /**
+     * GetStudents: Obtiene la lista de estudiantes inscritos en un curso.
+     * retorna la lista de estudiantes en formato JSON.
+     */
+
+    public function getStudents($courseId)
+    {
+        // Obtén el curso por su ID
+        $course = Course::findOrFail($courseId);
+
+        // Obtén los estudiantes inscritos en el curso
+        $students = $course->students()->get();  // Esto obtiene los usuarios relacionados con el curso
+
+        // Retorna la lista de estudiantes en formato JSON
+        return response()->json($students);
     }
 
     /**
@@ -125,7 +147,7 @@ class CourseController extends Controller
         return redirect()->route('admin-course.index')->with('success', 'Curso Eliminado Correctamente'); // Redirigir al listado de cursos
     }
 
-        // public function storeFile(Request $request, $courseId)
+    // public function storeFile(Request $request, $courseId)
     // {
     //     // Validación del archivo
     //     $request->validate([

@@ -50,7 +50,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed', // Confirmación de contraseña
-            'url_img'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'url_img'=>'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
         ]);
 
         //Subir imagen
@@ -66,13 +66,13 @@ class AuthController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'url_img' => $imagePath,
-        ]);
+        ])->assignRole('User');
 
         // Iniciar sesión automáticamente después del registro
         Auth::login($user);
 
         // Redirigir al perfil o página principal
-        return redirect()->route('courses');
+        return redirect()->route('courses.index');
     }
 
     // Cerrar sesión

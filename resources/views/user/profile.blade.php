@@ -7,10 +7,6 @@
             Perfil de <span class="text-orange-500">Usuario</span>
         </h2>
 
-        <!-- Mostrar mensaje de éxito o error usando el componente -->
-        <x-alert-message type="success" message="{{ session('success') }}" />
-        <x-alert-message type="error" message="{{ $errors->first() }}" />
-
         <div class="flex flex-col items-center">
             <!-- Imagen de perfil -->
             <div class="mb-6 flex justify-center">

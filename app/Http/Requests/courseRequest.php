@@ -24,7 +24,7 @@ class courseRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,avif|max:2048', // Aceptar solo imágenes
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048', // Aceptar solo imágenes
         ];
     }
 }
